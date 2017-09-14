@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Concentration Game</title>
+    <style>
+      /* CSS Styling Here*/
+
+      /* Initial "window" game square */
+      .game-square {
+        box-sizing: border-box;
+        border: 1px solid #000;
+        width: 100px;
+        height: 100px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* "Drawer" game square cover */
+      .game-square > div {
+        width: 100%;
+        height: 200%;
+        position: absolute;
+        top: 0;
+      }
+
+      /* "Default" and "color" internal game squares */
+      .game-square > div > div {
+        height: 50%;
+      }
+
+      /* "Default" square's color*/
+      .game-square > div > div:first-child {
+        background-color: grey;
+      }
+
+      /* "flip" style to reveal colored square */
+      .flip > div {
+        top: -100%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HTML Here -->
+
+    <div class="container">
+      <div id="game">
+        <!-- Game Squares -->
+
+        <!-- "Game Square" class initialization -->
+        <div class="game-square">
+          <div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // JS Here
+
+    </script>
+  </body>
+</html>
