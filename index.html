@@ -40,6 +40,16 @@
         top: -100%;
       }
 
+      /* Arrange squares in a grid formation */
+      #game {
+        width: 400px;
+        height: 400px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        border: 1px solid red;
+      }
+
       /* Color styling on square pairs*/
       .square-0 {
         background-color: aqua;
@@ -178,6 +188,7 @@
           </div>
         </div>
       </div>
+      <button id="reset-button">reset</button>
     </div>
     <script>
       // JS Here
