@@ -207,6 +207,49 @@
 
         // Event listener that listens for "click" events
         this.el.addEventListener("click", this, false);
+
+        // Sets color to game square
+        this.setColor(color); 
+      }
+
+      // Method to decide action in response to event listener
+      GameSquare.prototype.handleEvent = function(e) {
+        // Receives event object "e" to handle "click" type events
+        switch (e.type) {
+          case "click":
+            // Checks if square is open or locked, ignores "click" event if true
+            if (this.isOpen || this.isLocked) {
+              return;
+            }
+            // Otherwise mark square as "open" and add "flip" class to square
+            this.isOpen = true;
+            this.el.classList.add("flip");
+        }
+      }
+
+      // Method to reset game square to initial state
+      GameSquare.prototype.reset = function() {
+        // Sets "open" and "locked" square conditions to false
+        this.isOpen = false;
+        this.isLocked = false;
+        // Removes "flip" class from square
+        this.el.classList.remove("flip");
+      }
+
+      // Method to lock square pairs on correct match
+      GameSquare.prototype.lock = function() {
+        // Sets "open" and "locked" square conditions to true
+        this.isLocked = true;
+        this.isOpen = true;
+      }
+
+      // Method to set and alter colors of each square
+      GameSquare.prototype.setColor = function(color) {
+        // Removes initial color class from second nest div
+        this.el.children[0].children[1].classList.remove(this.color);
+        this.color = color;
+        // Adds new color class to second nest div
+        this.el.children[0].children[1].classList.add(color);
       }
 
     </script>
