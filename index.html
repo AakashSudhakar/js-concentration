@@ -23,6 +23,7 @@
         height: 200%;
         position: absolute;
         top: 0;
+        transition: 400ms;
       }
 
       /* "Default" and "color" internal game squares */
@@ -195,8 +196,19 @@
 
       var resetButton = document.getElementById("reset-button");
       var colors = [];
+      var gameSquares = [];
       for (var i = 0; i < 10; i++) {
         colors.push("square-" + i);
+      }
+
+      // Function to set up and initialize game
+      function setupGame() {
+        // Create array to hold game square objects
+        var array = document.getElementsByClassName("game-square");
+        // Initialize each square object in grid and with color
+        for (var i = 0; i < array.length; i++) {
+          gameSquares.push(new GameSquare(array[i], colors[0]));
+        }
       }
 
       // Function for a game square's behavior
@@ -209,7 +221,13 @@
         this.el.addEventListener("click", this, false);
 
         // Sets color to game square
-        this.setColor(color); 
+        this.setColor(color);
+      }
+
+      // Function to return random integer for assigning square colors
+      function random(n) {
+        // Returns an integer from 0 to n-1
+        return Math.floor(Math.random() * n);
       }
 
       // Method to decide action in response to event listener
@@ -251,6 +269,9 @@
         // Adds new color class to second nest div
         this.el.children[0].children[1].classList.add(color);
       }
+
+      // Call function to start game
+      setupGame();
 
     </script>
   </body>
