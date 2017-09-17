@@ -205,8 +205,11 @@
       function setupGame() {
         // Create array to hold game square objects
         var array = document.getElementsByClassName("game-square");
+        var randomColors = getSomeColors();
         // Initialize each square object in grid and with color
         for (var i = 0; i < array.length; i++) {
+          var index = random(randomColors.length);
+          var color = randomColors.splice(index, 1)[0];
           gameSquares.push(new GameSquare(array[i], colors[0]));
         }
       }
@@ -228,6 +231,17 @@
       function random(n) {
         // Returns an integer from 0 to n-1
         return Math.floor(Math.random() * n);
+      }
+
+      // Function to... get some colors. Not too much going on otherwise.
+      function getSomeColors() {
+        var colorscopy = colors.slice();
+        var randomColors = [];
+        for (var i = 0; i < 8; i++) {
+          var index = random(colorscopy.length);
+          randomColors.push(colorscopy.splice(index, 1)[0]);
+        }
+        return randomColors.concat(randomColors.slice());
       }
 
       // Method to decide action in response to event listener
