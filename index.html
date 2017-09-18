@@ -256,7 +256,7 @@
         return Math.floor(Math.random() * n);
       }
 
-      // Function to... get some colors. Not too much going on otherwise.
+      // Function to assign some random colors
       function getSomeColors() {
         var colorscopy = colors.slice();
         var randomColors = [];
@@ -265,6 +265,28 @@
           randomColors.push(colorscopy.splice(index, 1)[0]);
         }
         return randomColors.concat(randomColors.slice());
+      }
+
+      // Function to randomize colors at new game
+      function randomizeColors() {
+        var randomColors = getSomeColors();
+        // For each game square, assign a random color
+        gameSquares.forEach(function(gameSquare) {
+          var color = randomColors.splice(random(randomColors.length), 1)[0];
+          gameSquare.setColor(color);
+        })
+      }
+
+      // Function to clear game
+      function clearGame() {
+        // Reset each game square
+        gameSquare.forEach(function(gameSquare) {
+          gameSquare.reset();
+        });
+        // Timeout that randomizes colors and gives squares a chance to close
+        setTimeout(function() {
+          randomizeColors();
+        }, 500);
       }
 
       // Method to decide action in response to event listener
