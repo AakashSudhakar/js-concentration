@@ -198,56 +198,10 @@
       var colors = [];
       var firstSquare = null;
       var gameSquares = [];
+
+      // Loop to push square color values
       for (var i = 0; i < 10; i++) {
         colors.push("square-" + i);
-      }
-
-      // Function to set up and initialize game
-      function setupGame() {
-        // Create array to hold game square objects
-        var array = document.getElementsByClassName("game-square");
-        var randomColors = getSomeColors();
-        // Initialize each square object in grid and with color
-        for (var i = 0; i < array.length; i++) {
-          var index = random(randomColors.length);
-          var color = randomColors.splice(index, 1)[0];
-          gameSquares.push(new GameSquare(array[i], colors[0]));
-        }
-      }
-
-      // Function for a game square's behavior
-      function GameSquare(el, color) {
-        this.el = el;
-        this.isOpen = false;
-        this.isLocked = false;
-
-        // Event listener that listens for "click" events
-        this.el.addEventListener("click", this, false);
-
-        // Sets color to game square
-        this.setColor(color);
-      }
-
-      // Function for game square logic
-      function checkGame(gameSquare) {
-        if (firstSquare === null) {
-          firstSquare = gameSquare;
-          return
-        }
-
-        if (firstSquare.color === gameSquare.color) {
-          firstSquare.lock();
-          gameSquare.lock();
-        } else {
-          var a = firstSquare;
-          var b = gameSquare;
-          setTimeout(function() {
-            a.reset();
-            b.reset();
-            firstSquare = null;
-          }, 400);
-        }
-        firstSquare = null;
       }
 
       // Function to return random integer for assigning square colors
@@ -274,19 +228,24 @@
         gameSquares.forEach(function(gameSquare) {
           var color = randomColors.splice(random(randomColors.length), 1)[0];
           gameSquare.setColor(color);
-        })
+        });
       }
 
-      // Function to clear game
-      function clearGame() {
-        // Reset each game square
-        gameSquares.forEach(function(gameSquare) {
-          gameSquare.reset();
-        });
-        // Timeout that randomizes colors and gives squares a chance to close
-        setTimeout(function() {
-          randomizeColors();
-        }, 500);
+      resetButton.onclick = function() {
+        clearGame();
+      }
+
+      // Function for a game square's behavior
+      function GameSquare(el, color) {
+        this.el = el;
+        this.isOpen = false;
+        this.isLocked = false;
+
+        // Event listener that listens for "click" events
+        this.el.addEventListener("click", this, false);
+
+        // Sets color to game square
+        this.setColor(color);
       }
 
       // Method to decide action in response to event listener
@@ -329,6 +288,53 @@
         // Adds new color class to second nest div
         this.el.children[0].children[1].classList.add(color);
       }
+
+      // Function to set up and initialize game
+      function setupGame() {
+        // Create array to hold game square objects
+        var array = document.getElementsByClassName("game-square");
+        var randomColors = getSomeColors();
+        // Initialize each square object in grid and with color
+        for (var i = 0; i < array.length; i++) {
+          var index = random(randomColors.length);
+          var color = randomColors.splice(index, 1)[0];
+          gameSquares.push(new GameSquare(array[i], colors));
+        }
+      }
+
+      // Function for game square logic
+      function checkGame(gameSquare) {
+            if (firstSquare === null) {
+                firstSquare = gameSquare;
+                return
+              }
+
+              if (firstSquare.color === gameSquare.color) {
+                firstSquare.lock();
+                gameSquare.lock();
+              } else {
+                var a = firstSquare;
+                var b = gameSquare;
+                setTimeout(function() {
+                  a.reset();
+                  b.reset();
+                  firstSquare = null;
+                }, 400);
+              }
+              firstSquare = null;
+            }
+
+            // Function to clear game
+            function clearGame() {
+              // Reset each game square
+              gameSquares.forEach(function(gameSquare) {
+                gameSquare.reset();
+              });
+              // Timeout that randomizes colors and gives squares a chance to close
+              setTimeout(function() {
+                randomizeColors();
+              }, 500);
+            }
 
       // Call function to start game
       setupGame();
